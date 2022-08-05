@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: feralves < feralves@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 06:49:03 by feralves          #+#    #+#             */
-/*   Updated: 2022/08/06 00:27:52 by feralves         ###   ########.fr       */
+/*   Updated: 2022/08/06 01:26:30 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,18 +72,18 @@ char	*ft_return_line(int fd)
 	char		*line_read;
 	char		*aux_temp;
 	char		*dest;
-	static char	*overrun;
+	static char	*overrun[4096];
 
-	if (!overrun)
-		overrun = ft_strdup("");
+	if (!overrun[fd])
+		overrun[fd] = ft_strdup("");
 	line_read = ft_read(fd);
-	aux_temp = ft_strjoin(overrun, line_read);
+	aux_temp = ft_strjoin((char *)overrun, line_read);
 	free(line_read);
 	line_read = NULL;
-	free(overrun);
-	overrun = NULL;
+	free(overrun[fd]);
+	overrun[fd] = NULL;
 	if (ft_strchr(aux_temp, '\n'))
-		dest = ft_split_line(aux_temp, &overrun);
+		dest = ft_split_line(aux_temp, &overrun[fd]);
 	else if (*aux_temp)
 		return (aux_temp);
 	else
