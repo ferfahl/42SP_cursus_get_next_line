@@ -12,40 +12,55 @@
 
 #include "get_next_line.h"
 
-char	*ft_strdup(const char *s)
+char	*ft_strdup(const char *src)
 {
 	char	*duplicate;
 	int		count;
 
 	count = 0;
-	duplicate = malloc(ft_strlen(s) * sizeof(*duplicate) + 1);
+	duplicate = malloc(ft_strlen_mod(src, '\0', 0) * sizeof(*duplicate) + 1);
 	if (!duplicate)
 		return (NULL);
-	while (*s)
-		duplicate[count++] = *s++;
+	while (*src)
+		duplicate[count++] = *src++;
 	duplicate[count] = '\0';
 	return (duplicate);
 }
 
-size_t	ft_strlen(const char *str)
+size_t	ft_strlen_mod(const char *src, char a, size_t count)
+{
+	size_t  size;
+
+    size = 0;
+    while (src[count] != a && src[count] != '\0')
+	{
+		count++;
+        size++;
+	}
+	return (size);
+}
+
+void	ft_strlcpy_mod(char *dest, const char *src, char a, size_t index)
 {
 	size_t	count;
 
 	count = 0;
-	while (str[count] != '\0')
+	while (src[index] != a && src[index] != '\0')
 	{
-		count++;
+		dest[count] = src[index];
+        count++;
+		index++;
 	}
-	return (count);
+	dest[count] = 0;
 }
 
-char	*ft_strchr(const char *s, int c)
+char	*ft_strchr(const char *src, int c)
 {
 	char	*str;
 
-	str = (char *)s;
+	str = (char *)src;
 	if ((char)c == '\0')
-		return (&str[ft_strlen(str)]);
+		return (&str[ft_strlen_mod(str, '\0', 0)]); 
 	while (*str != '\0')
 	{
 		if (*str == (char)c)
@@ -68,7 +83,7 @@ char    *ft_strjoin(char *s1, char *s2)
     len_s2 = 0;
     if (!s1)
     {
-        new_str = malloc(ft_strlen(s2) + 1);
+        new_str = malloc(ft_strlen_mod(s2, '\0', 0) + 1);
         if (!new_str)
             return (NULL);
         while (s2[len_s2])
@@ -78,7 +93,7 @@ char    *ft_strjoin(char *s1, char *s2)
 		}
         return (new_str);
     }
-    len_total = (ft_strlen(s1) + ft_strlen(s2)) + 1;
+    len_total = (ft_strlen_mod(s1, '\0', 0) + ft_strlen_mod(s2, '\0', 0)) + 1;
     new_str = malloc (len_total);
     if (!new_str)
         return (NULL);

@@ -27,18 +27,16 @@
 #  define BUFFER_SIZE 4
 # endif
 
-//define return codes
-# define READ_OK 1
-# define MALLOC_ERROR NULL
-# define MALLOC_ERROR2 -2
-# define INPUT_ERROR -1
-# define NO_LINE_FEED -1
-
 //Functions
-char    *get_next_line(int fd);
+
 char	*ft_strchr(const char *s, int c);
-char    *ft_strjoin(char *s1, char *s2);
-size_t	ft_strlen(const char *str);
 char	*ft_strdup(const char *s);
+char    *ft_strjoin(char *s1, char *s2);
+void	ft_strlcpy_mod(char *dest, const char *src, char a, size_t index);
+size_t	ft_strlen_mod(const char *src, char a, size_t count);
+char    *get_next_line(int fd);
+char    *ft_read(int fd);
+char    *ft_return_line(int fd);
+char    *ft_split_line(char *aux_temp, char **overrun);
 
 #endif

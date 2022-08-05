@@ -12,33 +12,6 @@
 
 #include "get_next_line.h"
 
-size_t	ft_strlen_mod(const char *src, char a, size_t count)
-{
-	size_t  size;
-
-    size = 0;
-    while (src[count] != a && src[count] != '\0')
-	{
-		count++;
-        size++;
-	}
-	return (size);
-}
-
-void	ft_strlcpy_mod(char *dest, const char *src, char a, size_t index)
-{
-	size_t	count;
-
-	count = 0;
-	while (src[index] != a && src[index] != '\0')
-	{
-		dest[count] = src[index];
-        count++;
-		index++;
-	}
-	dest[count] = 0;
-}
-
 char    *ft_read(int fd)
 {
 	char    *the_reader;
